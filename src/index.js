@@ -12,8 +12,18 @@ const body = document.querySelector('body');
 
 // body.style.backgroundImage =
 //   'radial-gradient( circle 610px at 5.2% 51.6%,  rgba(5,8,114,1) 0%, rgba(7,3,53,1) 97.5% )';
-countriesList.style.visibility = 'hidden';
-countryInfo.style.visibility = 'hidden';
+
+// function visibilityList() {
+//     countriesList.style.visibility = 'hidden';
+//     countryInfo.style.visibility = 'hidden';
+// }
+
+// visibilityList();
+
+function clearList() {
+    countriesList.innerHTML = '';
+    countryInfo.innerHTML = '';
+}
 
 searchBox.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
 
@@ -23,10 +33,8 @@ function onInputSearch(e) {
     const searchCountries = e.target.value.trim();
 
     if (!searchCountries) {
-        countriesList.style.visibility = "hidden";
-        countryInfo.style.visibility = "hidden";
-        countriesList.innerHTML = '';
-        countryInfo.innerHTML = '';
+        clearList();
+        // visibilityList();
         return;
     }
 
@@ -39,8 +47,7 @@ function onInputSearch(e) {
             renderedCountries(result);
         })
         .catch(error => {
-            countriesList.innerHTML = '';
-            countryInfo.innerHTML = '';
+            clearList();
             Notify.failure('Oops, there is no country with that name');
         })
 };
@@ -50,15 +57,15 @@ function renderedCountries(result) {
 
     if (inputLetters === 1) {
         countriesList.innerHTML = '';
-        countriesList.style.visibility = "hidden";
-        countryInfo.style.visibility = "visible";
+        // countriesList.style.visibility = "hidden";
+        // countryInfo.style.visibility = "visible";
         countryCardMarkup(result);
     }
 
     if (inputLetters > 1 && inputLetters <= 10) {
         countryInfo.innerHTML = '';
-        countryInfo.style.visibility = "hidden";
-        countriesList.style.visibility = "visible";
+        // countryInfo.style.visibility = "hidden";
+        // countriesList.style.visibility = "visible";
         countriesListMarkup(result);
     }
 }
